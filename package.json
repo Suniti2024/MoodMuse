@@ -9,15 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "mongodb": "^6.17.0",
     "next": "^15.1.8",
+    "next-auth": "^4.24.11",
+    "openai": "^4.103.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-speech-recognition": "^4.0.1",
+    "recharts": "^2.15.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-speech-recognition": "^3.9.6",
     "eslint": "^9",
     "eslint-config-next": "15.1.8",
     "postcss": "^8",
