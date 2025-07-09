@@ -18,33 +18,60 @@ export default function HistoryPage() {
    const [data, setData] = useState<MoodEntry[]>([]);
 const [grouped, setGrouped] = useState<GroupedMood[]>([]);
 
-  useEffect(() => {
-    const email = localStorage.getItem("email");
-    if (!email) return;
+  // useEffect(() => {
+  //   const email = localStorage.getItem("email");
+  //   if (!email) return;
 
-    fetch("/api/get-history", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    })
-      .then(res => res.json())
-      .then(res => {
-        setData(res.entries);
+  //   fetch("/api/get-history", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ email }),
+  //   })
+  //     .then(res => res.json())
+  //     .then(res => {
+  //       setData(res.entries);
 
-        const moodCounts: any = {};
-        res.entries.forEach((entry: any) => {
-          const mood = entry.mood.toLowerCase();
-          moodCounts[mood] = (moodCounts[mood] || 0) + 1;
-        });
+  //       const moodCounts: any = {};
+  //       res.entries.forEach((entry: any) => {
+  //         const mood = entry.mood.toLowerCase();
+  //         moodCounts[mood] = (moodCounts[mood] || 0) + 1;
+  //       });
 
-        const formatted = Object.keys(moodCounts).map((mood) => ({
-          name: mood,
-          value: moodCounts[mood],
-        }));
+  //       const formatted = Object.keys(moodCounts).map((mood) => ({
+  //         name: mood,
+  //         value: moodCounts[mood],
+  //       }));
 
-        setGrouped(formatted);
+  //       setGrouped(formatted);
+  //     });
+  // }, []);
+useEffect(() => {
+  const email = localStorage.getItem("email");
+  if (!email) return;
+
+  fetch("/api/get-history", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  })
+    .then(res => res.json())
+    .then(res => {
+      setData(res.entries);
+
+      const moodCounts: Record<string, number> = {};
+      res.entries.forEach((entry: MoodEntry) => {
+        const mood = entry.mood.toLowerCase();
+        moodCounts[mood] = (moodCounts[mood] || 0) + 1;
       });
-  }, []);
+
+      const formatted = Object.keys(moodCounts).map((mood) => ({
+        name: mood,
+        value: moodCounts[mood],
+      }));
+
+      setGrouped(formatted);
+    });
+}, []);
 
   return (
     <main className="min-h-screen p-6 bg-gradient-to-r from-gray-900 to-gray-800 text-white">
