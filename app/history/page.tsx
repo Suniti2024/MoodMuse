@@ -2,12 +2,21 @@
 
 import { useEffect, useState } from "react";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
+interface MoodEntry {
+  mood: string;
+  date: string;
+}
+
+interface GroupedMood {
+  name: string;
+  value: number;
+}
 
 const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff6666", "#00C49F", "#FFBB28"];
 
 export default function HistoryPage() {
-  const [data, setData] = useState<any[]>([]);
-  const [grouped, setGrouped] = useState<any[]>([]);
+   const [data, setData] = useState<MoodEntry[]>([]);
+const [grouped, setGrouped] = useState<GroupedMood[]>([]);
 
   useEffect(() => {
     const email = localStorage.getItem("email");

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-export default function MoodSong({ mood }: { mood: string }) {
+export default function MoodSong({ mood }: { mood: Record<string, string> }) {
   const [song, setSong] = useState<any>(null);
 
   useEffect(() => {
